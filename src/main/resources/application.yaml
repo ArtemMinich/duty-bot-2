@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: duty-bot-2
+  datasource:
+    url: jdbc:mysql://mysql:3306/cadets
+    username: temic
+    password: 505606
+dutybot2:
+  name: DutyBot2
+  token: 6832595206:AAFLifUdptMq_9nK_U_Xk1k7FZ8dJxmCPvQ
