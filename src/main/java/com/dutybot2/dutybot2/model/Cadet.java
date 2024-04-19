@@ -1,6 +1,7 @@
 package com.dutybot2.dutybot2.model;
 
 import com.dutybot2.dutybot2.util.Caste;
+import com.dutybot2.dutybot2.util.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
@@ -32,6 +33,8 @@ public class Cadet {
     @Column(name = "caste")
     @Enumerated(EnumType.STRING)
     private Caste caste;
+
+
 
     public boolean isFree(){
         return status;
