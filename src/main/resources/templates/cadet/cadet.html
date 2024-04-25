@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p th:text="${'id: ' + cadet.getId()}">id</p>
+<p th:text="${'Прізвище: ' + cadet.getLastName()}">lastname</p>
+<p th:text="${'Кількість чергувань: ' + cadet.getDutyDayCount()}">DutyDayCount</p>
+<p th:text="${'Чат id: ' + cadet.getChatId()}">ChatId</p>
+<p th:text="${'По масті: ' + cadet.getCasteInUkrainian()}">Caste</p>
+<form th:action="@{/sergeant/cadets/{id}/addduty(id=${cadet.getId()})}" th:method="put">
+    <button type="submit">Добавити чергування(+)</button>
+</form>
+<form th:action="@{/sergeant/cadets/{id}/removeduty(id=${cadet.getId()})}" th:method="put">
+    <button type="submit">Відняти чергування(-)</button>
+</form>
+
+</body>
+</html>

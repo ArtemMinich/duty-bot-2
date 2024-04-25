@@ -8,6 +8,11 @@ spring:
     password: 505606
   jpa:
     generate-ddl: true
+
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
 server:
   port: 1488
 logging:

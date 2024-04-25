@@ -17,11 +17,12 @@ public class Duty {
     @Column(name = "date", nullable = false)
     private Date dutyDate;
 
-    @Column(name = "terka_cadet_id")
-    @OneToOne()
-    private Integer terkaCadetId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "terka_cadet_id", referencedColumnName = "id")
+    private Cadet terkaCadet;
 
-    @Column(name = "cubar_cadet_id")
-    private Integer cubarCadetId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cubar_cadet_id", referencedColumnName = "id")
+    private Cadet cubarCadet;
 
 }

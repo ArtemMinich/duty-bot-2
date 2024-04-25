@@ -40,6 +40,13 @@ public class Cadet {
         return status==CadetStatus.FREE;
     }
 
+    public String getCasteInUkrainian(){
+        if(caste.equals(Caste.HOBO)){
+            return "на базі";
+        }
+        return "київлянин";
+    }
+
     public String getAllInformation(){
         return String.format("%-3d%-9s%-4d",id,lastName,dutyDayCount);
     }

@@ -7,15 +7,15 @@
 <body>
 На базі:
 <div th:each="hobo : ${hobos}">
-    <p th:text="${hobo.getAllInformation()}">hobo</p>
+    <a th:href="@{/sergeant/cadets/{id}(id=${hobo.getId()})}" th:text="${hobo.getAllInformation()}">hobo</a>
 </div>
 Київляни:
 <div th:each="slut : ${sluts}">
-    <p th:text="${slut.getAllInformation()}">slut</p>
+    <a th:href="@{/sergeant/cadets/{id}(id=${slut.getId()})}" th:text="${slut.getAllInformation()}">slut</a>
 </div>
 Чергування:
 <div th:each="duty : ${duties}">
-    <p th:text="${duty.getDutyDate().getDate() + }">duty</p>
+    <p th:text="${duty.getDutyDate().getDate() + duty.getTerkaCadet().getLastName() + ' | ' + duty.getCubarCadet().getLastName()}">duty</p>
 </div>
 </body>
 </html>
