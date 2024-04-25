@@ -1,5 +1,6 @@
 package com.dutybot2.dutybot2.model;
 
+import com.dutybot2.dutybot2.util.CadetStatus;
 import com.dutybot2.dutybot2.util.Caste;
 import com.dutybot2.dutybot2.util.Role;
 import jakarta.persistence.*;
@@ -12,6 +13,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "cadet")
 public class Cadet {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -27,16 +29,18 @@ public class Cadet {
     private String chatId;
 
     @Column(name = "staus")
-    @Getter(AccessLevel.NONE)
-    private boolean status;
+    @Enumerated(EnumType.STRING)
+    private CadetStatus status;
 
     @Column(name = "caste")
     @Enumerated(EnumType.STRING)
     private Caste caste;
 
-
-
     public boolean isFree(){
-        return status;
+        return status==CadetStatus.FREE;
+    }
+
+    public String getAllInformation(){
+        return String.format("%-3d%-9s%-4d",id,lastName,dutyDayCount);
     }
 }

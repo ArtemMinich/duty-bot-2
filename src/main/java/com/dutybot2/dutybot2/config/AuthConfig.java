@@ -1,6 +1,6 @@
 package com.dutybot2.dutybot2.config;
 
-import com.dutybot2.dutybot2.service.CadetDetailsService;
+import com.dutybot2.dutybot2.service.CadetUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,23 +16,24 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @AllArgsConstructor
 public class AuthConfig {
-    private final CadetDetailsService cadetDetailsService;
+    private final CadetUserDetailsService cadetDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(Customizer.withDefaults())
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/error","/registration").permitAll()
-                        .requestMatchers("/cadet").hasRole("CADET")
+                        .requestMatchers("/home","/error","/auth/registration","/auth/login").permitAll()
                         .requestMatchers("/sergeant").hasRole("SERGEANT")
-                        .anyRequest().hasAnyRole("SERGEANT","CADET","ADMIN")
+                        .anyRequest().hasAnyRole("SERGEANT","CADET")
                 )
                 .formLogin((form) -> form
-                        .defaultSuccessUrl("/cadet")
+                        .loginPage("/auth/login")
+                        .permitAll()
+                        .defaultSuccessUrl("/cadets",true)
                 )
                 .logout((logout) -> logout
-                        .logoutSuccessUrl("/auth/home")
+                        .logoutSuccessUrl("/home")
                 )
                 .build();
     }

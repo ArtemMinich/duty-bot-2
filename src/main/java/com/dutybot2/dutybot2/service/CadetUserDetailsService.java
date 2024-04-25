@@ -2,7 +2,6 @@ package com.dutybot2.dutybot2.service;
 
 import com.dutybot2.dutybot2.details.CadetDetails;
 import com.dutybot2.dutybot2.model.CadetUser;
-import com.dutybot2.dutybot2.repository.CadetRepository;
 import com.dutybot2.dutybot2.repository.CadetUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +13,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class CadetDetailsService implements UserDetailsService {
+public class CadetUserDetailsService implements UserDetailsService {
     private CadetUserRepository cadetUserRepository;
 
     @Override

@@ -1,0 +1,20 @@
+services:
+  app:
+    container_name: dutybot2
+    image: dutybot2
+    build: ./
+    restart: always
+    ports:
+      - '1488:1488'
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:latest
+    command: --default-authentication-plugin=caching_sha2_password
+    environment:
+      - 'MYSQL_ROOT_PASSWORD=505606'
+      - 'MYSQL_DATABASE=main'
+      - 'MYSQL_USER=temic'
+      - 'MYSQL_PASSWORD=505606'
+    ports:
+      - '3307:3306'

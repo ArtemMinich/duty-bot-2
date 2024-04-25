@@ -2,9 +2,17 @@ spring:
   application:
     name: duty-bot-2
   datasource:
-    url: jdbc:mysql://mysql:3306/cadets
+    url: jdbc:mysql://localhost:3306/testdutybot2
+#    url: jdbc:mysql://mysql:3306/main
     username: temic
     password: 505606
+  jpa:
+    generate-ddl: true
+server:
+  port: 1488
+logging:
+  level:
+    root: info
 dutybot2:
   name: DutyBot2
   token: 6832595206:AAFLifUdptMq_9nK_U_Xk1k7FZ8dJxmCPvQ
