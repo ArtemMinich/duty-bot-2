@@ -50,4 +50,12 @@ public class Cadet {
     public String getAllInformation(){
         return String.format("%-3d%-9s%-4d",id,lastName,dutyDayCount);
     }
+
+    public void incrementDutyDayCount(){
+        dutyDayCount++;
+    }
+
+    public void decrementDutyDayCount(){
+        dutyDayCount = Math.max(dutyDayCount-1,0);
+    }
 }

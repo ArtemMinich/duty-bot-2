@@ -24,13 +24,13 @@ public class AuthConfig {
                 .csrf(Customizer.withDefaults())
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/home","/error","/auth/registration","/auth/login").permitAll()
-                        .requestMatchers("/sergeant").hasRole("SERGEANT")
+                        .requestMatchers("/sergeant","/bot").hasRole("SERGEANT")
                         .anyRequest().hasAnyRole("SERGEANT","CADET")
                 )
                 .formLogin((form) -> form
                         .loginPage("/auth/login")
                         .permitAll()
-                        .defaultSuccessUrl("/cadets",true)
+                        .defaultSuccessUrl("/cadets")
                 )
                 .logout((logout) -> logout
                         .logoutSuccessUrl("/home")

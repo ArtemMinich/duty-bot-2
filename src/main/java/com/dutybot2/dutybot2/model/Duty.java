@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -15,7 +16,7 @@ public class Duty {
 
     @Id
     @Column(name = "date", nullable = false)
-    private Date dutyDate;
+    private LocalDate dutyDate;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "terka_cadet_id", referencedColumnName = "id")

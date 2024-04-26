@@ -34,15 +34,17 @@ public class SergeantController {
     @PutMapping("/cadets/{id}/addduty")
     public String addDutyToCadetById(@PathVariable("id") int id) {
         Cadet cadet = cadetRepository.findById(id).get();
-        cadet.setDutyDayCount(cadet.getDutyDayCount() + 1 );
+        cadet.incrementDutyDayCount();
         cadetRepository.save(cadet);
         return "redirect:/sergeant/cadets";
     }
     @PutMapping("/cadets/{id}/removeduty")
     public String removeDutyToCadetById(@PathVariable("id") int id) {
         Cadet cadet = cadetRepository.findById(id).get();
-        cadet.setDutyDayCount(Math.max(cadet.getDutyDayCount() - 1, 0));
+        cadet.decrementDutyDayCount();
         cadetRepository.save(cadet);
         return "redirect:/sergeant/cadets";
     }
+
+
 }

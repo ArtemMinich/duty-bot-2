@@ -13,9 +13,14 @@
 <div th:each="slut : ${sluts}">
     <a th:href="@{/sergeant/cadets/{id}(id=${slut.getId()})}" th:text="${slut.getAllInformation()}">slut</a>
 </div>
+<form th:action="@{/bot/createduty}" th:method="get">
+    <button type="submit">Створити чергування</button>
+</form>
 Чергування:
+<p>ДАТА | КУБАРЬ | ТЕРИТОРІЯ</p>
 <div th:each="duty : ${duties}">
-    <p th:text="${duty.getDutyDate().getDate() + duty.getTerkaCadet().getLastName() + ' | ' + duty.getCubarCadet().getLastName()}">duty</p>
+    <p th:text="${duty.getDutyDate().toString() + ' | ' + duty.getCubarCadet().getLastName() + ' | ' + duty.getTerkaCadet().getLastName()}">duty</p>
 </div>
+
 </body>
 </html>

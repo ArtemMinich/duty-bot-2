@@ -16,6 +16,7 @@
 <form th:action="@{/sergeant/cadets/{id}/removeduty(id=${cadet.getId()})}" th:method="put">
     <button type="submit">Відняти чергування(-)</button>
 </form>
+<a th:href="@{/sergeant/cadets}"><button>Назад</button></a>
 
 </body>
 </html>

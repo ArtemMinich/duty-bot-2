@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p th:text="'Кубарь: ' + ${duty.getCubarCadet().getLastName()}">cubar</p>
+<p th:text="'Територія: ' + ${duty.getTerkaCadet().getLastName()}">terka</p>
+<form th:action="@{/bot/saveduty}" th:method="post" th:object="${duty}">
+    <label >Кубарь:</label>
+    <select name="cubar">
+        <option th:each="slut : ${sluts}" th:value="${slut.getId()}" th:text="${slut.getLastName()}" th:field="*{cubarCadet}" ></option>
+    </select>
+    <label >Територія:</label>
+    <select name="terka">
+        <option th:each="hobo : ${hobos}" th:value="${hobo.getId()}" th:text="${hobo.getLastName()}" th:field="*{terkaCadet}"></option>
+    </select>
+    <button type="submit">OK</button>
+</form>
+<a th:href="@{/sergeant/cadets}"><button>Назад</button></a>
+</body>
+</html>
