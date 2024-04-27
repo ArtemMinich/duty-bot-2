@@ -1,6 +1,7 @@
 package com.dutybot2.dutybot2.config;
 
 import com.dutybot2.dutybot2.service.CadetUserDetailsService;
+import com.dutybot2.dutybot2.util.CustomAuthenticationSuccessHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @AllArgsConstructor
 public class AuthConfig {
     private final CadetUserDetailsService cadetDetailsService;
+    private CustomAuthenticationSuccessHandler successHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -30,7 +32,7 @@ public class AuthConfig {
                 .formLogin((form) -> form
                         .loginPage("/auth/login")
                         .permitAll()
-                        .defaultSuccessUrl("/cadets")
+                        .successHandler(successHandler)
                 )
                 .logout((logout) -> logout
                         .logoutSuccessUrl("/home")
