@@ -38,7 +38,7 @@ public class DutyBot extends TelegramLongPollingBot {
 
     }
 
-    @Scheduled(cron = "0 59 11 * * ?")
+    @Scheduled(cron = "0 0 18 * * ?")
     public void sendSchedulingMessage(){
         if(!botConfig.getExecuteDate().equals(LocalDate.now())){
             Duty duty = cadetService.creatDuty();
