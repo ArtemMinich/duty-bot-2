@@ -14,4 +14,7 @@ public class BotConfig {
 
     @Value("${dutybot2.token}")
     private String botToken;
+
+    @Value("${dutybot2.executeDate}")
+    private String executeDate;
 }

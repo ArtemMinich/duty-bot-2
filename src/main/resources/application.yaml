@@ -19,5 +19,6 @@ logging:
   level:
     root: info
 dutybot2:
+  executeDate: 2024-04-24
   name: DutyBot2
   token: 6832595206:AAFLifUdptMq_9nK_U_Xk1k7FZ8dJxmCPvQ

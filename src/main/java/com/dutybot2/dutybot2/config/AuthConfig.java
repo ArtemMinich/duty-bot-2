@@ -24,8 +24,8 @@ public class AuthConfig {
                 .csrf(Customizer.withDefaults())
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/home","/error","/auth/registration","/auth/login").permitAll()
-                        .requestMatchers("/sergeant","/bot").hasRole("SERGEANT")
-                        .anyRequest().hasAnyRole("SERGEANT","CADET")
+                        .requestMatchers("/sergeant/**","/bot/**").hasAnyRole("SERGEANT","ADMIN")
+                        .anyRequest().hasAnyRole("SERGEANT","CADET","ADMIN")
                 )
                 .formLogin((form) -> form
                         .loginPage("/auth/login")

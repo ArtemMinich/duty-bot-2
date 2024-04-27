@@ -33,7 +33,7 @@ public class CadetService {
 
     @Transactional
     public void saveDuty(Duty duty){
-        duty.setDutyDate(LocalDate.now());
+        duty.setDutyDate(LocalDate.now().plusDays(1));
         duty.getCubarCadet().incrementDutyDayCount();
         duty.getTerkaCadet().incrementDutyDayCount();
         dutyRepository.save(duty);
