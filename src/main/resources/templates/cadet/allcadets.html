@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<a th:href="@{/sergeant/cadets}"><button>Сержантська панель</button></a><br>
+
 На базі:
 <div th:each="hobo : ${hobos}">
     <p th:text="${hobo.getAllInformation()}">hobo</p>

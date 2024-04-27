@@ -5,12 +5,14 @@
     <title>Title</title>
 </head>
 <body>
-<div th:each="user : ${users}">
-    <p th:text="${user.getId()+'. ' + user.getUsername()+' ('+ user.getRole()+')'}">hobo</p>
-</div>
+<a th:href="@{/sergeant/cadets}"><button>Сержантська панель</button></a><br>
 <form th:action="@{/admin/setsergeant}" th:method="put" >
     <div><label> id : <input type="text" name="userId"/> </label></div>
     <div><input type="submit" value="ОК"/></div>
 </form>
+<div th:each="user : ${users}">
+    <p th:text="${user.getId()+'. ' + user.getUsername()+' ('+ user.getRole()+')'}">hobo</p>
+</div>
+
 </body>
 </html>
