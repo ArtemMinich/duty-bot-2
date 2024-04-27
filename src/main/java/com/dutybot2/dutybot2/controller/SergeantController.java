@@ -36,14 +36,14 @@ public class SergeantController {
         Cadet cadet = cadetRepository.findById(id).get();
         cadet.incrementDutyDayCount();
         cadetRepository.save(cadet);
-        return "redirect:/sergeant/cadets";
+        return "redirect:/sergeant/cadets/{id}";
     }
     @PutMapping("/cadets/{id}/removeduty")
     public String removeDutyToCadetById(@PathVariable("id") int id) {
         Cadet cadet = cadetRepository.findById(id).get();
         cadet.decrementDutyDayCount();
         cadetRepository.save(cadet);
-        return "redirect:/sergeant/cadets";
+        return "redirect:/sergeant/cadets/{id}";
     }
 
 

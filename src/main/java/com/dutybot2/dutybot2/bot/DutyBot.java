@@ -20,6 +20,8 @@ public class DutyBot extends TelegramLongPollingBot {
 
     private final BotConfig botConfig;
     private final CadetService cadetService;
+    private final String GROUP_ID = "-1001693217220";
+
 
     @Override
     public String getBotToken() {
@@ -43,6 +45,7 @@ public class DutyBot extends TelegramLongPollingBot {
             cadetService.saveDuty(duty);
             sendTerka(duty);
             sendCubar(duty);
+            sendToGroup(duty);
             botConfig.setExecuteDate(LocalDate.now().toString());
         }
     }
@@ -52,6 +55,11 @@ public class DutyBot extends TelegramLongPollingBot {
     }
     public void sendCubar(Duty duty){
         sendMessage(duty.getCubarCadet().getChatId(), getTextToCadetDuty(duty.getCubarCadet().getCaste()));
+    }
+
+    public void sendToGroup(Duty duty){
+        sendMessage(GROUP_ID,"Територія: " + duty.getTerkaCadet().getLastName()
+                + "\nКубарь: " + duty.getCubarCadet().getLastName());
     }
 
     private String getTextToCadetDuty(Caste caste){

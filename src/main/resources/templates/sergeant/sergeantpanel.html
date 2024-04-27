@@ -14,7 +14,6 @@
     <a th:href="@{/sergeant/cadets/{id}(id=${slut.getId()})}" th:text="${slut.getAllInformation()}">slut</a>
 </div>
 <a th:href="@{/bot/createduty}"><button>Створити чергування</button></a><br>
-<a th:href="@{/bot/createduty}"><button>Налаштування відправлення повідомлення</button></a><br>
 Чергування:
 <p>ДАТА | КУБАРЬ | ТЕРИТОРІЯ</p>
 <div th:each="duty : ${duties}">
