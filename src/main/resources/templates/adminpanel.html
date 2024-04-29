@@ -2,17 +2,90 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>DutyBot2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-size: 50px;
+        }
+        p {
+            margin: 10px 0;
+            font-size: 50px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 50px;
+        }
+        input[type="submit"], button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 50px;
+            margin-top: 10px;
+        }
+        input[type="submit"]:hover, button:hover {
+            background-color: #45a049;
+        }
+        a {
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-<a th:href="@{/sergeant/cadets}"><button>Сержантська панель</button></a><br>
-<form th:action="@{/admin/setsergeant}" th:method="put" >
-    <div><label> id : <input type="text" name="userId"/> </label></div>
-    <div><input type="submit" value="ОК"/></div>
-</form>
-<div th:each="user : ${users}">
-    <p th:text="${user.getId()+'. ' + user.getUsername()+' ('+ user.getRole()+')'}">hobo</p>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <a th:href="@{/sergeant/cadets}"><button>Сержантська панель</button></a><br>
+    <form th:action="@{/admin/setsergeant}" th:method="put">
+        <div><label for="userId">ID:</label></div>
+        <div><input type="text" id="userId" name="userId" required></div>
+        <div><input type="submit" value="OK"></div>
+    </form>
+    <div th:each="user : ${users}">
+        <p th:text="${user.getId() + '. ' + user.getUsername() + ' (' + user.getRole() + ')'}">hobo</p>
+    </div>
 </div>
-
 </body>
 </html>

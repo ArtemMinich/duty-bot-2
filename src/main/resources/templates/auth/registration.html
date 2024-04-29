@@ -2,18 +2,83 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>DutyBot2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        form {
+            max-width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 20px;
+            font-size: 50px;
+            text-align: center;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 20px;
+            margin-top: 5px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            font-size: 30px;
+        }
+        .error-container {
+            margin-top: 5px;
+            font-size: 16px;
+        }
+        button[type="submit"] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 50px;
+            transition: background-color 0.3s;
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-<h1>Реєстрація</h1>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <form th:action="@{/auth/registration}" method="post" th:object="${cadetUser}">
-    <label> Login: <input type="text" th:field="*{username}" id="username" required> </label>
+    <label class="labels"> Логін: <input type="text" th:field="*{username}" id="username" required> </label>
     <div class="error-container" th:if="${#fields.hasErrors('username')}" style="color: red" th:errors="*{username}"></div>
     <br>
-    <label> Password: <input type="password" th:field="*{password}" id="password" required> </label>
+    <label class="labels"> Пароль: <input type="password" th:field="*{password}" id="password" required> </label>
     <div class="error-container" th:if="${#fields.hasErrors('password')}" style="color: red" th:errors="*{password}"></div>
     <br>
-    <button type="submit">Зареєствуватись</button>
+    <button type="submit">Зареєструватись</button>
 </form>
 </body>
 </html>

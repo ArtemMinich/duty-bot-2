@@ -3,6 +3,7 @@ package com.dutybot2.dutybot2.controller;
 import com.dutybot2.dutybot2.model.Cadet;
 import com.dutybot2.dutybot2.repository.CadetRepository;
 import com.dutybot2.dutybot2.repository.DutyRepository;
+import com.dutybot2.dutybot2.util.CadetStatus;
 import com.dutybot2.dutybot2.util.Caste;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -42,6 +43,18 @@ public class SergeantController {
     public String removeDutyToCadetById(@PathVariable("id") int id) {
         Cadet cadet = cadetRepository.findById(id).get();
         cadet.decrementDutyDayCount();
+        cadetRepository.save(cadet);
+        return "redirect:/sergeant/cadets/{id}";
+    }
+
+    @PutMapping("/cadets/{id}/setstatus")
+    public String setStatusCadetById(@PathVariable("id") int id) {
+        Cadet cadet = cadetRepository.findById(id).get();
+        if(cadet.isFree()){
+            cadet.setStatus(CadetStatus.BUSY);
+        } else {
+            cadet.setStatus(CadetStatus.FREE);
+        }
         cadetRepository.save(cadet);
         return "redirect:/sergeant/cadets/{id}";
     }

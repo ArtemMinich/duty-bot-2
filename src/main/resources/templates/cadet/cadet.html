@@ -2,21 +2,100 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>DutyBot2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        p {
+            margin: 10px 0;
+            font-size: 45px;
+        }
+        button[type="submit"], button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 50px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        button[type="submit"]:hover, button:hover {
+            background-color: #45a049;
+        }
+        a {
+            text-decoration: none;
+        }
+        a button {
+            background-color: #007bff;
+            margin-top: 20px;
+        }
+        a button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-<p th:text="${'id: ' + cadet.getId()}">id</p>
-<p th:text="${'Прізвище: ' + cadet.getLastName()}">lastname</p>
-<p th:text="${'Кількість чергувань: ' + cadet.getDutyDayCount()}">DutyDayCount</p>
-<p th:text="${'Чат id: ' + cadet.getChatId()}">ChatId</p>
-<p th:text="${'По масті: ' + cadet.getCasteInUkrainian()}">Caste</p>
-<form th:action="@{/sergeant/cadets/{id}/addduty(id=${cadet.getId()})}" th:method="put">
-    <button type="submit">Добавити чергування(+)</button>
-</form>
-<form th:action="@{/sergeant/cadets/{id}/removeduty(id=${cadet.getId()})}" th:method="put">
-    <button type="submit">Відняти чергування(-)</button>
-</form>
-<a th:href="@{/sergeant/cadets}"><button>Назад</button></a>
-
+<br>
+<br>
+<br>
+<br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <p th:text="${'ID: ' + cadet.getId()}">ID</p>
+    <p th:text="${'Прізвище: ' + cadet.getLastName()}">Прізвище</p>
+    <p th:text="${'Кількість чергувань: ' + cadet.getDutyDayCount()}">Кількість чергувань</p>
+    <p th:text="${'Чат ID: ' + cadet.getChatId()}">Чат ID</p>
+    <p th:text="${'По масті: ' + cadet.getCasteInUkrainian()}">Масть</p>
+    <p th:text="${'Статус: ' + cadet.getStatus().toString()}">Статус</p>
+    <form th:action="@{/sergeant/cadets/{id}/addduty(id=${cadet.getId()})}" th:method="put">
+        <button type="submit">Додати чергування (+)</button>
+    </form>
+    <form th:action="@{/sergeant/cadets/{id}/removeduty(id=${cadet.getId()})}" th:method="put">
+        <button type="submit">Відняти чергування (-)</button>
+    </form>
+    <form th:action="@{/sergeant/cadets/{id}/setstatus(id=${cadet.getId()})}" th:method="put">
+        <button type="submit">Змінити статус</button>
+    </form>
+    <a th:href="@{/sergeant/cadets}">
+        <button>Назад</button>
+    </a>
+</div>
 </body>
 </html>
