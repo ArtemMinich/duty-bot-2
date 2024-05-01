@@ -61,4 +61,17 @@ public class DutyRestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
+
+    @PutMapping("/duty")
+    public ResponseEntity<Object> updateDuty(@RequestParam("date") String date,
+                                             @RequestBody Duty updateDuty){
+        try{
+            return  ResponseEntity.ok(dutyService.updateDuty(LocalDate.parse(date), updateDuty));
+        }catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
 }

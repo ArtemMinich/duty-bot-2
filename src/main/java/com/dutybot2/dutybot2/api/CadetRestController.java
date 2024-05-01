@@ -57,8 +57,7 @@ public class CadetRestController {
     public ResponseEntity<Object> updateCadetById(@PathVariable("id") int id,
                                                @RequestBody Cadet updateCadet){
         try{
-            Cadet cadet = cadetService.updateCadet(id, updateCadet);
-            return  ResponseEntity.ok(cadet);
+            return  ResponseEntity.ok(cadetService.updateCadet(id, updateCadet));
         }catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
         }catch (Exception e){

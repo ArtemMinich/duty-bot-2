@@ -24,14 +24,14 @@ public class CadetService {
     private DutyRepository dutyRepository;
 
     @Transactional
-    public Cadet updateCadet(int existingCadetId, Cadet updateCadet){
+    public CadetDto updateCadet(int existingCadetId, Cadet updateCadet){
         Cadet cadet = cadetRepository.getReferenceById(existingCadetId);
         cadet.setDutyDayCount(updateCadet.getDutyDayCount());
         cadet.setStatus(updateCadet.getStatus());
         cadet.setCaste(updateCadet.getCaste());
         cadet.setChatId(updateCadet.getChatId());
         cadet.setLastName(updateCadet.getLastName());
-        return cadet;
+        return cadetToCadetDtoMap(cadet);
     }
     public CadetDto findCadetDtoById(int id){
         return cadetToCadetDtoMap(cadetRepository.getReferenceById(id));

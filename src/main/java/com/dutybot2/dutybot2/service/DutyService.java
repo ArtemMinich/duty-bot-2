@@ -58,4 +58,16 @@ public class DutyService {
     public DutyDto dutyToDutyDtoMap(Duty duty){
         return new DutyDto(duty.getDutyDate(),duty.getTerkaCadet().getLastName(),duty.getCubarCadet().getLastName());
     }
+
+    public DutyDto updateDuty(LocalDate existingDutyDate, Duty updateDuty){
+        Duty exitingDuty =  dutyRepository.getReferenceById(existingDutyDate);
+        exitingDuty.setDutyDate(updateDuty.getDutyDate());
+        exitingDuty.setTerkaCadet(updateDuty.getTerkaCadet());
+        exitingDuty.setCubarCadet(updateDuty.getCubarCadet());
+        return dutyToDutyDtoMap(exitingDuty);
+    }
+
+    public void deleteDuty(LocalDate dutyDate){
+        dutyRepository.deleteById(dutyDate);
+    }
 }
