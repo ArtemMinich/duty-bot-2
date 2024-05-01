@@ -47,7 +47,7 @@ public class DutyRestController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/duty")
     public ResponseEntity<Object> getDuty(@RequestParam("date") String date){
         try{
             Duty duty = dutyRepository.getDutyByDutyDate(LocalDate.parse(date));
