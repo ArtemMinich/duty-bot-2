@@ -2,8 +2,7 @@ spring:
   application:
     name: duty-bot-2
   datasource:
-#    url: jdbc:mysql://mysql:3306/main
-    url: jdbc:mysql://localhost:3306/testdutybot2
+    url: jdbc:mysql://mysql:3306/main
     username: temic
     password: 505606
   jpa:
