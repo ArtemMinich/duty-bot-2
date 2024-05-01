@@ -38,7 +38,7 @@ public class BotController {
         cadetService.saveDuty(duty);
         bot.sendCubar(duty);
         bot.sendTerka(duty);
-        bot.sendToGroup(duty);
+        bot.sendToGroup(duty) ;
         botConfig.setExecuteDate(LocalDate.now().toString());
         return "redirect:/sergeant/cadets";
     }

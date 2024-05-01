@@ -22,6 +22,20 @@ public class CadetService {
 
     private DutyRepository dutyRepository;
 
+    @Transactional
+    public Cadet updateCadet(int existingCadetId, Cadet updateCadet){
+        Cadet cadet = cadetRepository.getReferenceById(existingCadetId);
+        cadet.setDutyDayCount(updateCadet.getDutyDayCount());
+        cadet.setStatus(updateCadet.getStatus());
+        cadet.setCaste(updateCadet.getCaste());
+        cadet.setChatId(updateCadet.getChatId());
+        cadet.setLastName(updateCadet.getLastName());
+        return cadet;
+    }
+    public Cadet getReferenceById(int id){
+        return cadetRepository.getReferenceById(id);
+    }
+
     public Duty creatDuty(){
         Duty duty = new Duty();
         Optional<Cadet> terkaCadet =  creatTerkaCadet();
@@ -46,5 +60,13 @@ public class CadetService {
     private Optional<Cadet> creatCubarCadet(){
         List<Cadet> sluts = cadetRepository.findAllByCaste(Caste.SLUT);
         return sluts.stream().filter(Cadet::isFree).min(Comparator.comparingInt(Cadet::getDutyDayCount));
+    }
+
+    public List<Cadet> findAll() {
+        return cadetRepository.findAll();
+    }
+
+    public void save(Cadet newCadet) {
+        cadetRepository.save(newCadet);
     }
 }

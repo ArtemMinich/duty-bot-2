@@ -1,7 +1,6 @@
 package com.dutybot2.dutybot2.controller;
 
 import com.dutybot2.dutybot2.repository.CadetRepository;
-import com.dutybot2.dutybot2.repository.DutyRepository;
 import com.dutybot2.dutybot2.util.Caste;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
