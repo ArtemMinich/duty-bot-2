@@ -2,12 +2,11 @@ package com.dutybot2.dutybot2.model;
 
 import com.dutybot2.dutybot2.util.CadetStatus;
 import com.dutybot2.dutybot2.util.Caste;
-import com.dutybot2.dutybot2.util.Role;
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonValue;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.proxy.HibernateProxy;
-
-import java.util.Objects;
 
 @Data
 @Entity
@@ -36,10 +35,12 @@ public class Cadet {
     @Enumerated(EnumType.STRING)
     private Caste caste;
 
+    @JsonIgnore
     public boolean isFree(){
         return status==CadetStatus.FREE;
     }
 
+    @JsonIgnore
     public String getCasteInUkrainian(){
         if(caste.equals(Caste.HOBO)){
             return "на базі";
@@ -47,14 +48,17 @@ public class Cadet {
         return "київлянин";
     }
 
+    @JsonIgnore
     public String getAllInformation(){
         return String.format("%-3d%-9s%-4d",id,lastName,dutyDayCount);
     }
 
+    @JsonIgnore
     public void incrementDutyDayCount(){
         dutyDayCount++;
     }
 
+    @JsonIgnore
     public void decrementDutyDayCount(){
         dutyDayCount = Math.max(dutyDayCount-1,0);
     }

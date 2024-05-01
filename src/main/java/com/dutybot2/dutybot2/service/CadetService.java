@@ -1,5 +1,6 @@
 package com.dutybot2.dutybot2.service;
 
+import com.dutybot2.dutybot2.dto.CadetDto;
 import com.dutybot2.dutybot2.model.Cadet;
 import com.dutybot2.dutybot2.model.Duty;
 import com.dutybot2.dutybot2.repository.CadetRepository;
@@ -32,8 +33,12 @@ public class CadetService {
         cadet.setLastName(updateCadet.getLastName());
         return cadet;
     }
-    public Cadet getReferenceById(int id){
-        return cadetRepository.getReferenceById(id);
+    public CadetDto getReferenceById(int id){
+        return cadetToCadetDtoMap(cadetRepository.getReferenceById(id));
+    }
+
+    public CadetDto cadetToCadetDtoMap(Cadet cadet){
+        return new CadetDto(cadet.getLastName(),cadet.getDutyDayCount(), cadet.getChatId(),cadet.getStatus(),cadet.getCaste());
     }
 
     public Duty creatDuty(){
