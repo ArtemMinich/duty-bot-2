@@ -2,9 +2,7 @@ package com.dutybot2.dutybot2.model;
 
 import com.dutybot2.dutybot2.util.CadetStatus;
 import com.dutybot2.dutybot2.util.Caste;
-import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonValue;
 import jakarta.persistence.*;
 import lombok.*;
 

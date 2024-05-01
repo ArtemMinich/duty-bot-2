@@ -1,10 +1,7 @@
 package com.dutybot2.dutybot2.api;
 
 import com.dutybot2.dutybot2.dto.DutyDto;
-import com.dutybot2.dutybot2.model.Cadet;
 import com.dutybot2.dutybot2.model.Duty;
-import com.dutybot2.dutybot2.repository.DutyRepository;
-import com.dutybot2.dutybot2.service.CadetService;
 import com.dutybot2.dutybot2.service.DutyService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -25,18 +22,18 @@ public class DutyRestController {
     private final DutyService dutyService;
 
     @GetMapping
-    public ResponseEntity<Object> getAllDutiesDto(){
-        try{
+    public ResponseEntity<Object> getAllDutiesDto() {
+        try {
             List<DutyDto> duties = dutyService.findAll().stream().map(dutyService::dutyToDutyDtoMap).toList();
-            return  ResponseEntity.ok(duties);
-        }catch (Exception e){
+            return ResponseEntity.ok(duties);
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
     @PostMapping
-    public ResponseEntity<Object> saveDuty(@RequestBody Duty newDuty){
-        try{
+    public ResponseEntity<Object> saveDuty(@RequestBody Duty newDuty) {
+        try {
             dutyService.save(newDuty);
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setLocation(ServletUriComponentsBuilder
@@ -45,28 +42,40 @@ public class DutyRestController {
                     .buildAndExpand()
                     .toUri());
             return new ResponseEntity<>(newDuty, httpHeaders, HttpStatus.CREATED);
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
     @GetMapping("/duty")
-    public ResponseEntity<Object> getDutyDto(@RequestParam("date") String date){
-        try{
+    public ResponseEntity<Object> getDutyDto(@RequestParam("date") String date) {
+        try {
             DutyDto dutyDto = dutyService.findDutyDtoByDutyDate(LocalDate.parse(date));
-            return  ResponseEntity.ok(dutyDto);
-        }catch (EntityNotFoundException e) {
+            return ResponseEntity.ok(dutyDto);
+        } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
     @PutMapping("/duty")
     public ResponseEntity<Object> updateDuty(@RequestParam("date") String date,
-                                             @RequestBody Duty updateDuty){
+                                             @RequestBody Duty updateDuty) {
+        try {
+            return ResponseEntity.ok(dutyService.updateDuty(LocalDate.parse(date), updateDuty));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/duty")
+    public ResponseEntity<Object> deleteCadetById(@RequestParam("date") String date){
         try{
-            return  ResponseEntity.ok(dutyService.updateDuty(LocalDate.parse(date), updateDuty));
+            dutyService.deleteDuty(LocalDate.parse(date));
+            return  ResponseEntity.ok(HttpStatus.OK);
         }catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
         }catch (Exception e){

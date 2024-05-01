@@ -1,8 +1,6 @@
 package com.dutybot2.dutybot2.details;
 
-import com.dutybot2.dutybot2.model.Cadet;
 import com.dutybot2.dutybot2.model.CadetUser;
-import com.dutybot2.dutybot2.repository.CadetRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

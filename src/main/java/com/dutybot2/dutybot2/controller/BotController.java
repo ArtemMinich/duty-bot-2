@@ -3,7 +3,6 @@ package com.dutybot2.dutybot2.controller;
 import com.dutybot2.dutybot2.bot.DutyBot;
 import com.dutybot2.dutybot2.config.BotConfig;
 import com.dutybot2.dutybot2.model.Duty;
-import com.dutybot2.dutybot2.repository.CadetRepository;
 import com.dutybot2.dutybot2.service.CadetService;
 import com.dutybot2.dutybot2.service.DutyService;
 import com.dutybot2.dutybot2.util.Caste;

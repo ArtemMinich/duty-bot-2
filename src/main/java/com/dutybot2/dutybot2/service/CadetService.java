@@ -2,26 +2,19 @@ package com.dutybot2.dutybot2.service;
 
 import com.dutybot2.dutybot2.dto.CadetDto;
 import com.dutybot2.dutybot2.model.Cadet;
-import com.dutybot2.dutybot2.model.Duty;
 import com.dutybot2.dutybot2.repository.CadetRepository;
-import com.dutybot2.dutybot2.repository.DutyRepository;
 import com.dutybot2.dutybot2.util.Caste;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class CadetService {
 
     private CadetRepository cadetRepository;
-
-    private DutyRepository dutyRepository;
 
     @Transactional
     public CadetDto updateCadet(int existingCadetId, Cadet updateCadet){

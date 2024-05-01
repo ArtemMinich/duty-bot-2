@@ -2,17 +2,16 @@ package com.dutybot2.dutybot2.bot;
 
 import com.dutybot2.dutybot2.config.BotConfig;
 import com.dutybot2.dutybot2.model.Duty;
-import com.dutybot2.dutybot2.service.CadetService;
 import com.dutybot2.dutybot2.service.DutyService;
 import com.dutybot2.dutybot2.util.Caste;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
 import java.time.LocalDate;
 
 @Component
@@ -40,8 +39,8 @@ public class DutyBot extends TelegramLongPollingBot {
     }
 
     @Scheduled(cron = "0 0 18 * * ?")
-    public void sendSchedulingMessage(){
-        if(!botConfig.getExecuteDate().equals(LocalDate.now())){
+    public void sendSchedulingMessage() {
+        if (!botConfig.getExecuteDate().equals(LocalDate.now())) {
             Duty duty = dutyService.creatDuty();
             dutyService.save(duty);
             sendTerka(duty);
@@ -51,20 +50,21 @@ public class DutyBot extends TelegramLongPollingBot {
         }
     }
 
-    public void sendTerka(Duty duty){
+    public void sendTerka(Duty duty) {
         sendMessage(duty.getTerkaCadet().getChatId(), getTextToCadetDuty(duty.getTerkaCadet().getCaste()));
     }
-    public void sendCubar(Duty duty){
+
+    public void sendCubar(Duty duty) {
         sendMessage(duty.getCubarCadet().getChatId(), getTextToCadetDuty(duty.getCubarCadet().getCaste()));
     }
 
-    public void sendToGroup(Duty duty){
-        sendMessage(GROUP_ID,"Територія: " + duty.getTerkaCadet().getLastName()
+    public void sendToGroup(Duty duty) {
+        sendMessage(GROUP_ID, "Територія: " + duty.getTerkaCadet().getLastName()
                 + "\nКубарь: " + duty.getCubarCadet().getLastName());
     }
 
-    private String getTextToCadetDuty(Caste caste){
-        return caste==Caste.HOBO?"Ти тєрка завтра":"Ти кубарь завтра";
+    private String getTextToCadetDuty(Caste caste) {
+        return caste == Caste.HOBO ? "Ти тєрка завтра" : "Ти кубарь завтра";
     }
 
     private void sendMessage(String chatId, String text) {

@@ -1,8 +1,6 @@
 package com.dutybot2.dutybot2.controller;
 
 import com.dutybot2.dutybot2.model.Cadet;
-import com.dutybot2.dutybot2.repository.CadetRepository;
-import com.dutybot2.dutybot2.repository.DutyRepository;
 import com.dutybot2.dutybot2.service.CadetService;
 import com.dutybot2.dutybot2.service.DutyService;
 import com.dutybot2.dutybot2.util.CadetStatus;
