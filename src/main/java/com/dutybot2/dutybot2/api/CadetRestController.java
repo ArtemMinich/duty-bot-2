@@ -2,20 +2,16 @@ package com.dutybot2.dutybot2.api;
 
 import com.dutybot2.dutybot2.dto.CadetDto;
 import com.dutybot2.dutybot2.model.Cadet;
-import com.dutybot2.dutybot2.repository.CadetRepository;
 import com.dutybot2.dutybot2.service.CadetService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/cadets")
@@ -24,10 +20,9 @@ public class CadetRestController {
     private final CadetService cadetService;
 
     @GetMapping
-    public ResponseEntity<Object> getAllCadets(){
+    public ResponseEntity<Object> getAllCadetDtos(){
         try{
-            List<Cadet> cadets = cadetService.findAll();
-            return  ResponseEntity.ok(cadets);
+            return  ResponseEntity.ok(cadetService.findAll().stream().map(cadetService::cadetToCadetDtoMap).toList());
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
@@ -50,9 +45,9 @@ public class CadetRestController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CadetDto> getCadetById(@PathVariable("id") int id){
+    public ResponseEntity<CadetDto> getCadetDtoById(@PathVariable("id") int id){
         try{
-            return  ResponseEntity.ok(cadetService.getReferenceById(id));
+            return  ResponseEntity.ok(cadetService.findCadetDtoById(id));
         }catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
@@ -64,6 +59,18 @@ public class CadetRestController {
         try{
             Cadet cadet = cadetService.updateCadet(id, updateCadet);
             return  ResponseEntity.ok(cadet);
+        }catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteCadetById(@PathVariable("id") int id){
+        try{
+            cadetService.deleteCadetById(id);
+            return  ResponseEntity.ok(HttpStatus.OK);
         }catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
         }catch (Exception e){

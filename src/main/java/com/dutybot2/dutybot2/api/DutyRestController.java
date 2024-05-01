@@ -1,8 +1,11 @@
 package com.dutybot2.dutybot2.api;
 
+import com.dutybot2.dutybot2.dto.DutyDto;
 import com.dutybot2.dutybot2.model.Cadet;
 import com.dutybot2.dutybot2.model.Duty;
 import com.dutybot2.dutybot2.repository.DutyRepository;
+import com.dutybot2.dutybot2.service.CadetService;
+import com.dutybot2.dutybot2.service.DutyService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -19,22 +22,22 @@ import java.util.List;
 @AllArgsConstructor
 public class DutyRestController {
 
-    private final DutyRepository dutyRepository;
+    private final DutyService dutyService;
 
     @GetMapping
-    public ResponseEntity<Object> getAllDuties(){
+    public ResponseEntity<Object> getAllDutiesDto(){
         try{
-            List<Duty> duties = dutyRepository.findAll();
+            List<DutyDto> duties = dutyService.findAll().stream().map(dutyService::dutyToDutyDtoMap).toList();
             return  ResponseEntity.ok(duties);
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Unexpected error occurred while fetching student");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
     @PostMapping
     public ResponseEntity<Object> saveDuty(@RequestBody Duty newDuty){
         try{
-            dutyRepository.save(newDuty);
+            dutyService.save(newDuty);
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setLocation(ServletUriComponentsBuilder
                     .fromCurrentRequest()
@@ -43,19 +46,19 @@ public class DutyRestController {
                     .toUri());
             return new ResponseEntity<>(newDuty, httpHeaders, HttpStatus.CREATED);
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Unexpected error occurred while fetching student");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
     @GetMapping("/duty")
-    public ResponseEntity<Object> getDuty(@RequestParam("date") String date){
+    public ResponseEntity<Object> getDutyDto(@RequestParam("date") String date){
         try{
-            Duty duty = dutyRepository.getDutyByDutyDate(LocalDate.parse(date));
-            return  ResponseEntity.ok(duty);
+            DutyDto dutyDto = dutyService.findDutyDtoByDutyDate(LocalDate.parse(date));
+            return  ResponseEntity.ok(dutyDto);
         }catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Unexpected error occurred while fetching student");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 }

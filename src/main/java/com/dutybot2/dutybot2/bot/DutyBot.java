@@ -3,6 +3,7 @@ package com.dutybot2.dutybot2.bot;
 import com.dutybot2.dutybot2.config.BotConfig;
 import com.dutybot2.dutybot2.model.Duty;
 import com.dutybot2.dutybot2.service.CadetService;
+import com.dutybot2.dutybot2.service.DutyService;
 import com.dutybot2.dutybot2.util.Caste;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +20,7 @@ import java.time.LocalDate;
 public class DutyBot extends TelegramLongPollingBot {
 
     private final BotConfig botConfig;
-    private final CadetService cadetService;
+    private final DutyService dutyService;
     private final String GROUP_ID = "-1001693217220";
 
 
@@ -41,8 +42,8 @@ public class DutyBot extends TelegramLongPollingBot {
     @Scheduled(cron = "0 0 18 * * ?")
     public void sendSchedulingMessage(){
         if(!botConfig.getExecuteDate().equals(LocalDate.now())){
-            Duty duty = cadetService.creatDuty();
-            cadetService.saveDuty(duty);
+            Duty duty = dutyService.creatDuty();
+            dutyService.save(duty);
             sendTerka(duty);
             sendCubar(duty);
             sendToGroup(duty);

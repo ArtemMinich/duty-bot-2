@@ -1,6 +1,7 @@
 package com.dutybot2.dutybot2.controller;
 
 import com.dutybot2.dutybot2.repository.CadetRepository;
+import com.dutybot2.dutybot2.service.CadetService;
 import com.dutybot2.dutybot2.util.Caste;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 public class CadetController {
 
-    private CadetRepository cadetRepository;
+    private CadetService cadetService;
 
     @GetMapping()
     public String getAllCadets(Model model){
-        model.addAttribute("hobos",cadetRepository.findAllByCaste(Caste.HOBO));
-        model.addAttribute("sluts",cadetRepository.findAllByCaste(Caste.SLUT));
+        model.addAttribute("hobos",cadetService.findAllByCaste(Caste.HOBO));
+        model.addAttribute("sluts",cadetService.findAllByCaste(Caste.SLUT));
         return "cadet/allcadets";
     }
 }

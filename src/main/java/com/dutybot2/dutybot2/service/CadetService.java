@@ -33,38 +33,12 @@ public class CadetService {
         cadet.setLastName(updateCadet.getLastName());
         return cadet;
     }
-    public CadetDto getReferenceById(int id){
+    public CadetDto findCadetDtoById(int id){
         return cadetToCadetDtoMap(cadetRepository.getReferenceById(id));
     }
 
     public CadetDto cadetToCadetDtoMap(Cadet cadet){
         return new CadetDto(cadet.getLastName(),cadet.getDutyDayCount(), cadet.getChatId(),cadet.getStatus(),cadet.getCaste());
-    }
-
-    public Duty creatDuty(){
-        Duty duty = new Duty();
-        Optional<Cadet> terkaCadet =  creatTerkaCadet();
-        terkaCadet.ifPresent(duty::setTerkaCadet);
-        Optional<Cadet> cubarCadet =  creatCubarCadet();
-        cubarCadet.ifPresent(duty::setCubarCadet);
-        return duty;
-    }
-
-    @Transactional
-    public void saveDuty(Duty duty){
-        duty.setDutyDate(LocalDate.now().plusDays(1));
-        duty.getCubarCadet().incrementDutyDayCount();
-        duty.getTerkaCadet().incrementDutyDayCount();
-        dutyRepository.save(duty);
-    }
-
-    private Optional<Cadet> creatTerkaCadet(){
-        List<Cadet> hobos = cadetRepository.findAllByCaste(Caste.HOBO);
-        return hobos.stream().filter(Cadet::isFree).min(Comparator.comparingInt(Cadet::getDutyDayCount));
-    }
-    private Optional<Cadet> creatCubarCadet(){
-        List<Cadet> sluts = cadetRepository.findAllByCaste(Caste.SLUT);
-        return sluts.stream().filter(Cadet::isFree).min(Comparator.comparingInt(Cadet::getDutyDayCount));
     }
 
     public List<Cadet> findAll() {
@@ -73,5 +47,17 @@ public class CadetService {
 
     public void save(Cadet newCadet) {
         cadetRepository.save(newCadet);
+    }
+
+    public Cadet getReferenceById(Integer id) {
+        return cadetRepository.getReferenceById(id);
+    }
+
+    public Object findAllByCaste(Caste caste) {
+        return cadetRepository.findAllByCaste(caste);
+    }
+
+    public void deleteCadetById(int id){
+        cadetRepository.deleteById(id);
     }
 }

@@ -7,5 +7,5 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public interface DutyRepository extends JpaRepository<Duty, Date> {
-    Duty getDutyByDutyDate(LocalDate date);
+    Duty findByDutyDate(LocalDate date);
 }
