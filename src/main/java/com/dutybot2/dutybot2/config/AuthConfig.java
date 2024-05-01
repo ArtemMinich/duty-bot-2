@@ -25,7 +25,7 @@ public class AuthConfig {
         return http
                 .csrf(Customizer.withDefaults())
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/home","/error","/auth/registration","/auth/login").permitAll()
+                        .requestMatchers("/home","/error","/auth/registration","/auth/login","/api/**").permitAll()
                         .requestMatchers("/sergeant/**","/bot/**").hasAnyRole("SERGEANT","ADMIN")
                         .anyRequest().hasAnyRole("SERGEANT","CADET","ADMIN")
                 )
