@@ -15,9 +15,8 @@ import java.util.Optional;
 @AllArgsConstructor
 public class CadetUserDetailsService implements UserDetailsService {
     private CadetUserRepository cadetUserRepository;
-
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public CadetDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<CadetUser> cadetUser = cadetUserRepository.findByUsername(username);
         if(username.isEmpty()){
             throw  new UsernameNotFoundException("Користувача не знайдено!!!");

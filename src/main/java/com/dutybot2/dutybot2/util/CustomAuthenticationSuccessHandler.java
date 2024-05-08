@@ -24,7 +24,7 @@ public class CustomAuthenticationSuccessHandler
             HttpServletRequest request,
             HttpServletResponse response,
             Authentication authentication)
-            throws IOException, ServletException {
+            throws IOException{
 
         String role = extractRole(authentication);
 

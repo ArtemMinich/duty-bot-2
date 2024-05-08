@@ -1,17 +1,25 @@
 package com.dutybot2.dutybot2.config;
 
 import com.dutybot2.dutybot2.service.CadetUserDetailsService;
+import com.dutybot2.dutybot2.service.CadetUserService;
 import com.dutybot2.dutybot2.util.CustomAuthenticationSuccessHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -19,23 +27,27 @@ import org.springframework.security.web.SecurityFilterChain;
 public class AuthConfig {
     private final CadetUserDetailsService cadetDetailsService;
     private CustomAuthenticationSuccessHandler successHandler;
+    private JwtFilter jwtFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(Customizer.withDefaults())
+                .csrf(csrf-> csrf
+                        .ignoringRequestMatchers("/api/**")
+                )
+                .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/home","/error","/auth/registration","/auth/login","/api/**").permitAll()
                         .requestMatchers("/sergeant/**","/bot/**").hasAnyRole("SERGEANT","ADMIN")
-                        .anyRequest().hasAnyRole("SERGEANT","CADET","ADMIN")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/cadets","/api/duties").authenticated()
+                        .anyRequest().permitAll()
                 )
-                .formLogin((form) -> form
-                        .loginPage("/auth/login")
-                        .permitAll()
-                        .successHandler(successHandler)
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(httpSecurityExceptionHandlingConfigurer -> httpSecurityExceptionHandlingConfigurer
+                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 )
-                .logout((logout) -> logout
-                        .logoutSuccessUrl("/home")
+                .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .build();
     }
@@ -49,5 +61,10 @@ public class AuthConfig {
     @Bean
     public PasswordEncoder getPasswordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 }

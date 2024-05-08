@@ -2,12 +2,12 @@ spring:
   application:
     name: duty-bot-2
   datasource:
-    url: jdbc:mysql://mysql:3306/main
+#    url: jdbc:mysql://mysql:3306/main
+    url: jdbc:mysql://localhost:3306/testdutybot2
     username: temic
     password: 505606
   jpa:
     generate-ddl: true
-
   mvc:
     hiddenmethod:
       filter:
@@ -21,3 +21,6 @@ dutybot2:
   executeDate: 2024-04-24
   name: DutyBot2
   token: 6832595206:AAFLifUdptMq_9nK_U_Xk1k7FZ8dJxmCPvQ
+jwt:
+  secret: dgsgsagsaf6g1awr61wa6rfarfa6fdff16a168ef168f168waf1
+  lifetime: 30m

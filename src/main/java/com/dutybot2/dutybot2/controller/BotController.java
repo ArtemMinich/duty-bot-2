@@ -31,10 +31,10 @@ public class BotController {
     }
     @PostMapping("/saveduty")
     public String saveDuty(@ModelAttribute Duty duty,
-                           @RequestParam("cubar") Integer cubarCadteID,
-                           @RequestParam("terka") Integer terkaCadteID){
-        duty.setCubarCadet(cadetService.getReferenceById(cubarCadteID));
-        duty.setTerkaCadet(cadetService.getReferenceById(terkaCadteID));
+                           @RequestParam("cubar") Integer cubarCadetId,
+                           @RequestParam("terka") Integer terkaCadetId){
+        duty.setCubarCadet(cadetService.getReferenceById(cubarCadetId));
+        duty.setTerkaCadet(cadetService.getReferenceById(terkaCadetId));
         dutyService.save(duty);
         bot.sendCubar(duty);
         bot.sendTerka(duty);

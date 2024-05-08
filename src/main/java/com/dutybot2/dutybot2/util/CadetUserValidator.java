@@ -21,7 +21,7 @@ public class CadetUserValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         CadetUser cadetUser = (CadetUser) target;
-        if(cadetUserService.loadByUsername(cadetUser.getUsername()).isPresent()){
+        if(cadetUserService.findByUsername(cadetUser.getUsername()).isPresent()){
             errors.rejectValue("username","","Такий логін вже зареєстрований");
         }
     }

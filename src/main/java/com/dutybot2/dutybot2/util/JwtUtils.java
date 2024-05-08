@@ -31,7 +31,6 @@ public class JwtUtils {
 
         Date issuedDate = new Date();
         Date expiredDate =new Date(issuedDate.getTime() + lifetime.toMillis());
-
         SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
         return Jwts
                 .builder()

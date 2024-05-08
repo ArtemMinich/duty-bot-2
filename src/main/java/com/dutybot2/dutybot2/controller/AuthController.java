@@ -1,5 +1,6 @@
 package com.dutybot2.dutybot2.controller;
 
+import com.dutybot2.dutybot2.dto.RegistrationUserDto;
 import com.dutybot2.dutybot2.model.CadetUser;
 import com.dutybot2.dutybot2.service.CadetUserService;
 import com.dutybot2.dutybot2.util.CadetUserValidator;
@@ -21,13 +22,13 @@ public class AuthController {
     private CadetUserValidator cadetUserValidator;
 
     @PostMapping("/registration")
-    public String registerUser(@ModelAttribute("cadetUser") @Valid CadetUser cadetUser,
+    public String registerUser(@ModelAttribute("cadetUser") @Valid RegistrationUserDto registrationUserDto,
                                BindingResult bindingResult){
-        cadetUserValidator.validate(cadetUser,bindingResult);
+        cadetUserValidator.validate(registrationUserDto,bindingResult);
         if(bindingResult.hasErrors()){
             return "auth/registration";
         }
-        cadetUserService.save(cadetUser);
+        cadetUserService.save(registrationUserDto);
         return "redirect:/auth/login";
     }
     @GetMapping("/registration")
